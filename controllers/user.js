@@ -1,4 +1,5 @@
 import { userModel } from '../modules/user.js'
+const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
 
 //קבלת כל המשתמשים
@@ -52,7 +53,7 @@ export async function addUser(req, res) {
     if (body.tz.length < 9)
         return res.status(409).json({ title: "tz error", massege: "incorrect tz" })
 
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    
     if (!emailRegex.test(body.email))
         return res.status(409).json({ title: "email error", massege: "wrong email" })
 
@@ -87,7 +88,7 @@ export async function updateUser(req, res) {
     if (body.tz && body.tz.length < 9)
         return res.status(409).json({ title: "tz error", massege: "incorrect tz" })
 
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  
     if (body.email && !emailRegex.test(body.email))
         return res.status(409).json({ title: "email error", massege: "wrong email" })
 
@@ -112,7 +113,7 @@ export async function updateUser(req, res) {
 
 //עדכון סיסמת משתמש בלבד
 export async function updatePassword(req, res) {
-    let { password } = req.params
+    let { id } = req.params
     let { body } = req
 
     if (body.name || body.email || body.tz || body.date || body.role)
@@ -121,11 +122,11 @@ export async function updatePassword(req, res) {
     if (!body.password)
         return res.status(400).json({ title: "can't update password", massege: "there is no password field to update" })
 
-        if (body.password.length < 9)
+    if (body.password.length < 9)
         return res.status(409).json({ title: "password error", massege: "length of password smaller than 9" })
 
     try {
-        let data = await userModel.findByIdAndUpdate(password, body, { new: true }).select('-password');
+        let data = await userModel.findByIdAndUpdate(id, body, { new: true }).select('-password');
         if (!data)
             return res.status(404).json({ title: "can't update password", massege: "No such id found" })
         res.json(data)

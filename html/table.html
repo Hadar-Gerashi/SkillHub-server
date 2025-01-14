@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="table.css">
+    <title>rest api</title>
+</head>
+
+<body>
+    <h1>- rest api -</h1>
+   
+    <h2>user</h2> 
+    <h3>link: <a href="https://courses-fig4.onrender.com/api/user" >https://courses-fig4.onrender.com/api/user</a></h3>
+   
+    <table>
+        <thead>
+            <tr>
+                <th>crud</th>
+                <th>כתובת</th>
+                <th>פרמטרים</th>
+                <th>Body</th>
+                <th>מה עושה?</th>
+                <th>איזה סוגי שגיאות יכולות לחזור?</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>GET</td>
+                <td>api/user</td>
+                <td>-</td>
+                <td>-</td>
+                <td>מחזירה את כל המשתמשים</td>
+                <td>400 - בעית שרת - לא ניתן לשלוף את כל המשתמשים</td>
+            </tr>
+            <tr>
+                <td>GET</td>
+                <td>api/user</td>
+                <td>id</td>
+                <td>-</td>
+                <td>מחזירה משתמש ספציפי לפי פרמטר קוד</td>
+                <td>404 - לא נמצא משתמש עם id תואם <br>
+                    400 - בעית שרת - לא ניתן לשלוף משתמש עפי הid שלו</td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>api/user</td>
+                <td>-</td>
+                <td>פרטי משתמש - חייב להכניס תז, שם, מייל וסיסמא </td>
+                <td>מוסיפה משתמש חדש</td>
+                <td>409 - שגיאה מבחינת הבדיקות תקינות <br>
+                400 - בעית שרת - לא ניתן להוסיף משתמש חדש או שלא הוכנסו פרטים נדרשים או שהוכנסו פרטים שלא ניתנים להוספה עי לקוח</td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>api/user/logIn</td>
+                <td>-</td>
+                <td>שם משתמש וסיסמא בלבד</td>
+                <td>כניסה של משתמש קיים</td>
+                <td>404 - לא נמצא משתמש עם סיסמא ושם תואמים<br>
+                    400 - בעית שרת - לא ניתן להכנס כמשתמש קיים</td>
+            </tr>
+            <tr>
+                <td>PUT</td>
+                <td>api/user/password</td>
+                <td>id</td>
+                <td>סיסמא מעודכנת בלבד</td>
+                <td>מעדכנת רק את השדה סיסמא של משתמש לפי הid שלו</td>
+                <td>409 - שגיאה מבחינת הבדיקות תקינות <br>
+                    400 - בעית שרת - לא ניתן לעדכן סיסמא או שלא הוכנסה סיסמא לשינוי או שהוכנסו פרטים נוספים שלא ניתנים לעדכון פה<br>
+                    404 - לא נמצא משתמש עם id זהה
+                </td>
+                </td>
+            </tr>
+            <tr>
+                <td>PUT</td>
+                <td>api/user</td>
+                <td>id</td>
+                <td>פרטי עדכון משתמש - ללא אפשרות לעדכון סיסמא</td>
+                <td>מעדכנת משתמש מסוים לפי הid חוץ מהסיסמא שלו</td>
+                <td>409 - שגיאה מבחינת הבדיקות תקינות <br>
+                    400 - בעית שרת - לא ניתן לעדכן פרטי משתמש או שלא הוכנסו פרטים נדרשים או שהוכנסה סיסמא וכן פרטים נוספים שלא ניתנים לעדכון פה<br>
+                    404 - לא נמצא משתמש עם id זהה</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+<br><br><br>
+
+
+    <h2>course</h2>
+    <h3>link: <a href="https://courses-fig4.onrender.com/api/course" >https://courses-fig4.onrender.com/api/course</a></h3>
+    <table>
+        <thead>
+            <tr>
+                <th>crud</th>
+                <th>כתובת</th>
+                <th>פרמטרים</th>
+                <th>Body</th>
+                <th>מה עושה?</th>
+                <th>איזה סוגי שגיאות יכולות לחזור?</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>GET</td>
+                <td>api/course</td>
+                <td>-</td>
+                <td>-</td>
+                <td>מחזירה את כל הקורסים</td>
+                <td>400 - בעית שרת - לא ניתן לשלוף את כל הקורסים</td>
+            </tr>
+            <tr>
+                <td>GET</td>
+                <td>api/course</td>
+                <td>id</td>
+                <td>-</td>
+                <td>מחזירה קורס ספציפי לפי פרמטר קוד</td>
+                <td>404 - לא נמצא קורס עם id תואם <br>
+                    400 - בעית שרת - לא ניתן לשלוף קורס עפי הid שלו</td>
+            </tr>
+            <tr>
+                <td>DELETE</td>
+                <td>api/course</td>
+                <td>id</td>
+                <td>-</td>
+                <td>מוחקת קורס קיים לפי הid שלו</td>
+                <td>404 - לא נמצא קורס עם id תואם <br>
+                    400 - בעית שרת - לא ניתן למחוק קורס עפי הid</td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>api/course</td>
+                <td>-</td>
+                <td>פרטי הקורס - חייב להכניס שם, תאור, מחיר, אורך, מיקום ותאריך פתיחה</td>
+                <td>מוסיפה קורס חדש</td>
+                <td>409 - שגיאה מבחינת הבדיקות תקינות <br>
+                    400 - בעית שרת - לא ניתן להוסיף קורס עפי הid או שלא הוכנסו פרטים נדרשים</td></td>
+            </tr>
+            <tr>
+                <td>PUT</td>
+                <td>api/course</td>
+                <td>id</td>
+                <td>פרטי עדכון הקורס - חייב לעדכן בכל מצב את התאור</td>
+                <td>מעדכנת קורס קיים לפי הid שלו</td>
+                <td>409 - שגיאה מבחינת הבדיקות תקינות <br>
+                    400 - בעית שרת - לא ניתן לעדכן פרטי קורס או שלא הוכנסו פרטים נדרשים<br>
+                    404 - לא נמצא קורס עם id זהה</td>
+            </tr>
+    
+        </tbody>
+    </table>
+
+
+    <br><br><br>
+
+
+    <h2>orders</h2>
+    <h3>link: <a href="https://courses-fig4.onrender.com/api/order" >https://courses-fig4.onrender.com/api/order</a></h3>
+    <table>
+        <thead>
+            <tr>
+                <th>crud</th>
+                <th>כתובת</th>
+                <th>פרמטרים</th>
+                <th>Body</th>
+                <th>מה עושה?</th>
+                <th>איזה סוגי שגיאות יכולות לחזור?</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>GET</td>
+                <td>api/order</td>
+                <td>-</td>
+                <td>-</td>
+                <td>מחזירה את כל ההזמנות</td>
+                <td>400 - בעית שרת - לא ניתן לשלוף את כל ההזמנות</td>
+            </tr>
+            <tr>
+                <td>GET</td>
+                <td>api/order</td>
+                <td>id</td>
+                <td>-</td>
+                <td>מחזירה הזמנה ספציפית לפי פרמטר קוד</td>
+                <td>
+                    400 - בעית שרת - לא ניתן לשלוף הזמנות של משתמש עפי הid שלו</td>
+            </tr>
+            <tr>
+                <td>DELETE</td>
+                <td>api/order</td>
+                <td>id</td>
+                <td>-</td>
+                <td>מוחקת הזמנה קיימת במידה ועדין אין אישור הזמנה לפי הid שלו</td>
+                <td>404 - לא נמצא הזמנה עם id זהה <br>
+                    400 - בעית שרת - לא ניתן למחוק הזמנה עפי הid</td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>api/order</td>
+                <td>-</td>
+                <td>פרטי הזמנה - חייב לעדכן את שם המזמין והקורסים המוזמנים</td>
+                <td>מוסיפה הזמנה חדשה</td>
+                <td>400 - בעית שרת - לא ניתן להוסיף הזמנה חדשה או שלא הוכנסו פרטים נדרשים או שהוכנסו פרטים שלא ניתנים להוספה עי לקוח
+                   </td>
+            </tr>
+            <tr>
+                <td>PUT</td>
+                <td>api/order</td>
+                <td>id</td>
+                <td>-</td>
+                <td>מעדכנת הזמנה קימת לפי הid שלה</td>
+                <td>
+                    400 - בעית שרת - לא ניתן לעדכן אישור הזמנה
+                   </td>
+            </tr>
+    
+        </tbody>
+    </table>
+
+
+
+
+
+
+</body>
+
+</html>
