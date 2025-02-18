@@ -11,7 +11,7 @@ export const courseSchema = Schema({
     price: Number,
     motivation: String,
     categories: {
-        type: String,
+        type: [String],
         enum: ['EDUCATION',
         'PROGRAMMING',
         'DESIGN',
