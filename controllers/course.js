@@ -80,7 +80,7 @@ export async function addCourse(req, res) {
 
     catch (err) {
         console.log(err)
-        res.status(400).json({ title: "can't add new course", massege: err.massege })
+        res.status(400).json({ title: "can't add new course because err", massege: err.massege })
     }
 }
 
