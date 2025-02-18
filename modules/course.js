@@ -24,7 +24,8 @@ export const courseSchema = Schema({
         'PHOTOGRAPHY',   
         'TRAVEL',
         'CONDTORIA',
-        'DIET'],
+        'DIET',
+    'RIDING'],
     },
     locations: [String]
 })
