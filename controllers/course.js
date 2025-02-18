@@ -57,7 +57,7 @@ export async function deleteCourseById(req, res) {
 export async function addCourse(req, res) {
     let { body } = req
 
-    if (!body.name || !body.describe || !body.openingDate || !body.long || !body.price || !body.locations)
+    if (!body.name || !body.describe || !body.openingDate || !body.long || !body.price || !body.locations || !body.motivation)
         return res.status(400).json({ title: "can't add new course", massege: "you are missing required fields" })
 
     if (body.name.length < 2)
