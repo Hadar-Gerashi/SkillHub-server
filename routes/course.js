@@ -2,7 +2,7 @@ import express from 'express'
 
 import {getAllCourses,getCourseById,deleteCourseById,addCourse,updateCourse} from '../controllers/course.js'
 
-let router=express.Router();
+const router=express.Router();
 
 router.get("/",getAllCourses)
 router.get("/:id",getCourseById)

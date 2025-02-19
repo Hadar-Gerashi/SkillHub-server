@@ -2,7 +2,7 @@ import express from 'express'
 
 import {getAllUser,getUserById,addUser,updateUser,updatePassword,logIn} from '../controllers/user.js'
 
-let router=express.Router();
+const router=express.Router();
 
 router.get("/",getAllUser)
 router.get("/:id",getUserById)
