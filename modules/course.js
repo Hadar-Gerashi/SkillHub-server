@@ -19,6 +19,7 @@ export const courseSchema = Schema({
         'MUSIC',
         'FITNESS',
         'DEVELOPMENT',
+        'MEDIA',
         'SPORT',
         'GAMING',
         'PHOTOGRAPHY',   
