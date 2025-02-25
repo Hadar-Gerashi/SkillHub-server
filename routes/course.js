@@ -4,8 +4,8 @@ import {getAllCourses,getCourseById,deleteCourseById,addCourse,updateCourse,getT
 
 const router=express.Router();
 
-router.get("/:pageNum",getAllCourses)
-router.get("/",getTotalCount)
+router.get("/",getAllCourses)
+router.get("/getCount",getTotalCount)
 router.get("/:id",getCourseById)
 router.delete("/:id",deleteCourseById)
 router.post("/",addCourse)
