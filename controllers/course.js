@@ -3,8 +3,11 @@ import { courseModel } from '../modules/course.js'
 
 // קבלת כל הקורסים
 export async function getAllCourses(req, res) {
+    let limit = req.query.page || 10;
+    let page = req.query.page || 1;
+
     try {
-        let data = await courseModel.find()
+        let data = await courseModel.find().skip((page - 1) * limit).limit(limit)
         res.json(data)
     }
     catch (err) {
@@ -109,5 +112,24 @@ export async function updateCourse(req, res) {
         console.log(err)
         res.status(400).json({ title: "can't update this course", massege: err.massege })
     }
+}
+
+//החזרת כמות עמודים גבול לכל עמוד וכמות קורסים
+export const getTotalCount = async (req, res) => {
+    let limit = req.query.page || 10;
+    try {
+        let data = await courseModel.countDocuments()
+        res.json({
+            totalCount: data,
+            pages: Math.ceil(data / limit),
+            limit: limit
+        })
+    }
+    catch (err) {
+        console.log(err)
+        res.status(400).json({ title: "cannot get count", message: err.massege })
+
+    }
+
 }
 

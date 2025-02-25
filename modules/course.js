@@ -1,5 +1,12 @@
 import { Schema, model } from "mongoose"
 
+// const responseSchema=Schema({
+//     name:String,
+//     img:String,
+//     score:Number,
+//     content:String
+// })
+
 
 
 export const courseSchema = Schema({
@@ -28,7 +35,8 @@ export const courseSchema = Schema({
         'DIET',
     'RIDING'],
     },
-    locations: [String]
+    locations: [String],
+    // responses:[responseSchema]
 })
 
 export const courseModel = model("courses", courseSchema)
