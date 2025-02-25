@@ -3,7 +3,7 @@ import { courseModel } from '../modules/course.js'
 
 // קבלת כל הקורסים
 export async function getAllCourses(req, res) {
-    let limit = req.query.page || 10;
+    let limit = req.query.limit || 10;
     let page = req.query.page || 1;
 
     try {
@@ -116,7 +116,7 @@ export async function updateCourse(req, res) {
 
 //החזרת כמות עמודים גבול לכל עמוד וכמות קורסים
 export const getTotalCount = async (req, res) => {
-    let limit = req.query.page || 10;
+    let limit = req.query.limit || 10;
     try {
         let data = await courseModel.countDocuments()
         res.json({
