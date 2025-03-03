@@ -141,6 +141,7 @@ export async function updatePassword(req, res) {
 
 //כניסה של משתמש קיים לפי שם וסיסמא
 export async function logIn(req, res) {
+    let { body } = req
     if (body.password.length < 7)
         return res.status(409).json({ title: "password error", massege: "length of password smaller than 7" })
 
