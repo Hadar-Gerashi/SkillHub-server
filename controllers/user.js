@@ -40,20 +40,20 @@ export async function addUser(req, res) {
     if (!body.password || !body.tz || !body.email || !body.name)
         return res.status(400).json({ title: "can't add new user", massege: "you are missing required fields" })
 
-    if (body.date)
-        return res.status(400).json({ title: "date error", massege: "you tried to initialize a date field" })
+    // if (body.date)
+    //     return res.status(400).json({ title: "date error", massege: "you tried to initialize a date field" })
 
-    if (body.role)
-        return res.status(400).json({ title: "role error", massege: "you tried to initialize a date field" })
+    // if (body.role)
+    //     return res.status(400).json({ title: "role error", massege: "you tried to initialize a date field" })
 
-    if (body.password.length < 9)
-        return res.status(409).json({ title: "password error", massege: "length of password smaller than 9" })
+    if (body.password.length < 7)
+        return res.status(409).json({ title: "password error", massege: "length of password smaller than 7" })
 
 
     if (body.tz.length < 9)
         return res.status(409).json({ title: "tz error", massege: "incorrect tz" })
 
-    
+
     if (!emailRegex.test(body.email))
         return res.status(409).json({ title: "email error", massege: "wrong email" })
 
@@ -88,7 +88,7 @@ export async function updateUser(req, res) {
     if (body.tz && body.tz.length < 9)
         return res.status(409).json({ title: "tz error", massege: "incorrect tz" })
 
-  
+
     if (body.email && !emailRegex.test(body.email))
         return res.status(409).json({ title: "email error", massege: "wrong email" })
 
@@ -141,6 +141,14 @@ export async function updatePassword(req, res) {
 
 //כניסה של משתמש קיים לפי שם וסיסמא
 export async function logIn(req, res) {
+    let { body } = req
+    if (body.password.length < 7)
+        return res.status(409).json({ title: "password error", massege: "length of password smaller than 7" })
+
+
+    if (body.name.length < 2)
+        return res.status(409).json({ title: "name error", massege: "length of name smaller than 2" })
+
     try {
         let data = await userModel.findOne({ password: req.body.password, name: req.body.name }).select('-password');
         if (!data)
