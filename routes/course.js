@@ -1,8 +1,10 @@
 import express from 'express'
 
+import { isUserIn } from '../middlewares/isUserIn.js';
 import {getAllCourses,getCourseById,deleteCourseById,addCourse,updateCourse,getTotalCount} from '../controllers/course.js'
 
-const router=express.Router();
+
+const router = express.Router();
 
 router.get("/",getAllCourses)
 router.get("/getCount",getTotalCount)
