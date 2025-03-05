@@ -1,4 +1,5 @@
 import { userModel } from '../modules/user.js'
+import { generetTooken } from '../utils/generateToken.js';
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
 
@@ -150,11 +151,21 @@ export async function logIn(req, res) {
         return res.status(409).json({ title: "name error", massege: "length of name smaller than 2" })
 
     try {
-        let data = await userModel.findOne({ password: req.body.password, name: req.body.name }).select('-password');
+
+        if (!req.body.password || !req.body.name)
+            return res.status(400).json({ title: "can't login", massege: "missing userName or password" })
+
+        let data = await userModel.findOne({ password: req.body.password, name: req.body.name }).select('-password').lean();
         if (!data)
             return res.status(404).json({ title: "can't login", massege: "No such user found" })
 
-        res.json(data)
+
+        let token = generetTooken({ ...userModel })
+        let { password, ...other } = data;
+        other.token = token;
+        res.json(other)
+
+
 
     }
 

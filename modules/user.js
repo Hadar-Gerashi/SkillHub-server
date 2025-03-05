@@ -3,7 +3,7 @@ import { Schema, model } from "mongoose"
 export const userSchema = Schema({
     name: String,
     email: { type: String, require: true },
-    password: String,
+    password: { type: String, unique: true},
     tz: String,
     date: {
         type: Date,
@@ -12,7 +12,7 @@ export const userSchema = Schema({
     role: {
         type: String,
         enum: ['ADMIN', 'USER'],
-        default : 'USER'
+        default: 'USER'
     }
 })
 
