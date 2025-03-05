@@ -10,7 +10,7 @@ router.get("/",getAllCourses)
 router.get("/getCount",getTotalCount)
 router.get("/:id",getCourseById)
 router.delete("/:id",deleteCourseById)
-router.post("/",isUserIn,addCourse)
+router.post("/",addCourse)
 router.put("/:id",updateCourse)
 
 export default router
