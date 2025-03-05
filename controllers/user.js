@@ -155,14 +155,21 @@ export async function logIn(req, res) {
         if (!req.body.password || !req.body.name)
             return res.status(400).json({ title: "can't login", massege: "missing userName or password" })
 
+        // let data = await userModel.findOne({ name: req.body.name }).lean();
+        // if (!data)
+        //     return res.status(404).json({ title: "no such user", message: "cannot fing any user with such username  " })
+        // if (data.password != req.body.password)
+        //     return res.status(404).json({ title: "cannot find user with such details", message: "wrong  password" })
+
         let data = await userModel.findOne({ password: req.body.password, name: req.body.name }).select('-password').lean();
         if (!data)
             return res.status(404).json({ title: "can't login", massege: "No such user found" })
 
 
-        let token = generetTooken({ ...userModel })
+        let token = generetTooken(data)
         let { password, ...other } = data;
         other.token = token;
+        console.log(other)
         res.json(other)
 
 
