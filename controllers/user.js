@@ -63,7 +63,7 @@ export async function addUser(req, res) {
 
     try {
         let newData = new userModel(body)
-        newData.role = "USER"
+        // newData.role = "USER"
         let data = await newData.save()
 
         res.json(data)
