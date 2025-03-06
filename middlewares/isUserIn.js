@@ -21,7 +21,7 @@ export function isUserIn(req, res, next) {
 
 
 export function isManager(req, res, next) {
-    if (!req.header.authorization)
+    if (!req.headers.authorization)
         return res.status(401).json({ title: "משתמש לא רשום", message: "קודם בצע כניסה או הרשמה" })
     let authorization = req.headers.authorization;
 
