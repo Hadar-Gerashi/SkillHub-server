@@ -9,7 +9,7 @@ router.get("/",getAllUser)
 router.get("/:id",getUserById)
 router.post("/",addUser)
 router.put("/:id",isUserIn,updateUser)
-router.put("/password/:id",updatePassword)
+router.put("/password/:id",isUserIn,updatePassword)
 router.post("/logIn",logIn)
 
 export default router

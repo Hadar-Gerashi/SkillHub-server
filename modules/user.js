@@ -31,7 +31,6 @@ import Joi from 'joi';
         email: Joi.string()
             .email()
             .min(7)
-            .max(50)
             .pattern(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)
             .optional(),
 
@@ -45,7 +44,7 @@ import Joi from 'joi';
             .required(),
 
         date: Joi.date()
-            .default(() => new Date(), 'current date'), 
+            .default(() => new Date()), 
 
         role: Joi.string()
             .default("USER") 
@@ -64,12 +63,11 @@ export function validateUpdateUser(user) {
         name: Joi.string()
             .min(2)
             .max(30)
-            .required(),
+            .optional(),
 
         email: Joi.string()
             .email()
             .min(7)
-            .max(50)
             .pattern(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)
             .optional(),
 
@@ -77,7 +75,7 @@ export function validateUpdateUser(user) {
         tz: Joi.string()
             .length(9) 
             .pattern(/^\d{9}$/) 
-            .required(),
+            .optional(),
 
       
     }).options({ abortEarly: false });

@@ -57,7 +57,7 @@ export async function addUser(req, res) {
     //     return res.status(409).json({ title: "name error", massege: "length of name smaller than 2" })
     let result = validateUser(req.body)
     if (result.error)
-        res.status(400).json({ title: result.error.details[0].message })
+       return res.status(400).json({ title: result.error.details[0].message })
 
     try {
         let newData = new userModel(body)
@@ -86,7 +86,7 @@ export async function updateUser(req, res) {
 
     let result = validateUpdateUser(req.body)
     if (result.error)
-        res.status(400).json({ title: result.error.details[0].message })
+       return res.status(400).json({ title: result.error.details[0].message })
     // if (body.tz && body.tz.length < 9)
     //     return res.status(409).json({ title: "tz error", massege: "incorrect tz" })
 
@@ -157,7 +157,7 @@ export async function logIn(req, res) {
             return res.status(400).json({ title: "can't login", massege: "missing userName or password" })
         let result = validateLogInUser(req.body)
         if (result.error)
-            res.status(400).json({ title: result.error.details[0].message })
+           return res.status(400).json({ title: result.error.details[0].message })
 
         // let data = await userModel.findOne({ name: req.body.name }).lean();
         // if (!data)
@@ -177,6 +177,28 @@ export async function logIn(req, res) {
         res.json(other)
 
 
+
+    }
+
+    catch (err) {
+        console.log(err)
+        return res.status(400).json({ title: "can't login", massege: err.massege })
+
+    }
+}
+
+
+
+
+
+export async function isExist(req, res) {
+
+    try {
+
+
+        let data = await userModel.findOne({ password: req.body.password, email: req.body.email }).select('-password').lean();
+        if (data)
+            return res.status(404).json({ title: "can't login", massege: "user already exist" })
 
     }
 
