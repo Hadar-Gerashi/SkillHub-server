@@ -3,7 +3,7 @@ import { Schema, model } from "mongoose"
 export const userSchema = Schema({
     name: String,
     email: { type: String, require: true },
-    password: { type: String, unique: true},
+    password: { type: String, unique: true },
     tz: String,
     date: {
         type: Date,
@@ -15,5 +15,96 @@ export const userSchema = Schema({
         default: 'USER'
     }
 })
-
 export const userModel = model("user", userSchema)
+
+
+const Joi = require('joi')
+
+ export function validateUser(user) {
+    const JoiSchema = Joi.object({
+        name: Joi.string()
+            .min(2)
+            .max(30)
+            .required(),
+
+        email: Joi.string()
+            .email()
+            .min(7)
+            .max(50)
+            .pattern(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)
+            .optional(),
+
+        password: Joi.string()
+            .min(9)
+            .required(),
+
+        tz: Joi.string()
+            .length(9) 
+            .pattern(/^\d{9}$/) 
+            .required(),
+
+        date: Joi.date()
+            .default(() => new Date(), 'current date'), 
+
+        role: Joi.string()
+            .default("USER") 
+            .valid("USER", "ADMIN") 
+            .optional(),
+    }).options({ abortEarly: false });
+
+    return JoiSchema.validate(user);
+}
+
+
+
+
+export function validateUpdateUser(user) {
+    const JoiSchema = Joi.object({
+        name: Joi.string()
+            .min(2)
+            .max(30)
+            .required(),
+
+        email: Joi.string()
+            .email()
+            .min(7)
+            .max(50)
+            .pattern(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)
+            .optional(),
+
+
+        tz: Joi.string()
+            .length(9) 
+            .pattern(/^\d{9}$/) 
+            .required(),
+
+      
+    }).options({ abortEarly: false });
+
+    return JoiSchema.validate(user);
+}
+
+
+
+
+export function validateLogInUser(user) {
+    const JoiSchema = Joi.object({
+        name: Joi.string()
+            .min(2)
+            .max(30)
+            .required(),
+
+            password: Joi.string()
+            .min(9)
+            .required(),
+
+    }).options({ abortEarly: false });
+
+    return JoiSchema.validate(user);
+}
+
+
+
+
+
+

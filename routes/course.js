@@ -9,8 +9,8 @@ const router = express.Router();
 router.get("/",getAllCourses)
 router.get("/getCount",getTotalCount)
 router.get("/:id",getCourseById)
-router.delete("/:id",deleteCourseById)
+router.delete("/:id",isManager,deleteCourseById)
 router.post("/",isManager,addCourse)
-router.put("/:id",updateCourse)
+router.put("/:id",isManager,updateCourse)
 
 export default router

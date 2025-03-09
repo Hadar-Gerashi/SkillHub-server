@@ -1,6 +1,7 @@
 import { userModel } from '../modules/user.js'
 import { generetTooken } from '../utils/generateToken.js';
-const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+import { validateUser, validateLogInUser, validateUpdateUser } from '../modules/user.js'
+// const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
 
 //קבלת כל המשתמשים
@@ -40,26 +41,23 @@ export async function addUser(req, res) {
 
     if (!body.password || !body.tz || !body.email || !body.name)
         return res.status(400).json({ title: "can't add new user", massege: "you are missing required fields" })
+    // if (body.password.length < 7)
 
-    // if (body.date)
-    //     return res.status(400).json({ title: "date error", massege: "you tried to initialize a date field" })
-
-    // if (body.role)
-    //     return res.status(400).json({ title: "role error", massege: "you tried to initialize a date field" })
-
-    if (body.password.length < 7)
-        return res.status(409).json({ title: "password error", massege: "length of password smaller than 7" })
+    //     return res.status(409).json({ title: "password error", massege: "length of password smaller than 7" })
 
 
-    if (body.tz.length < 9)
-        return res.status(409).json({ title: "tz error", massege: "incorrect tz" })
+    // if (body.tz.length < 9)
+    //     return res.status(409).json({ title: "tz error", massege: "incorrect tz" })
 
 
-    if (!emailRegex.test(body.email))
-        return res.status(409).json({ title: "email error", massege: "wrong email" })
+    // if (!emailRegex.test(body.email))
+    //     return res.status(409).json({ title: "email error", massege: "wrong email" })
 
-    if (body.name.length < 2)
-        return res.status(409).json({ title: "name error", massege: "length of name smaller than 2" })
+    // if (body.name.length < 2)
+    //     return res.status(409).json({ title: "name error", massege: "length of name smaller than 2" })
+    let result = validateUser(req.body)
+    if (result.error)
+        res.status(400).json({ title: result.error.details[0].message })
 
     try {
         let newData = new userModel(body)
@@ -86,15 +84,18 @@ export async function updateUser(req, res) {
         return res.status(400).json({ title: "can't update user", massege: "these fields cannot be updated" })
 
 
-    if (body.tz && body.tz.length < 9)
-        return res.status(409).json({ title: "tz error", massege: "incorrect tz" })
+    let result = validateUpdateUser(req.body)
+    if (result.error)
+        res.status(400).json({ title: result.error.details[0].message })
+    // if (body.tz && body.tz.length < 9)
+    //     return res.status(409).json({ title: "tz error", massege: "incorrect tz" })
 
 
-    if (body.email && !emailRegex.test(body.email))
-        return res.status(409).json({ title: "email error", massege: "wrong email" })
+    // if (body.email && !emailRegex.test(body.email))
+    //     return res.status(409).json({ title: "email error", massege: "wrong email" })
 
-    if (body.name && body.name.length < 2)
-        return res.status(409).json({ title: "name error", massege: "length of name smaller than 2" })
+    // if (body.name && body.name.length < 2)
+    //     return res.status(409).json({ title: "name error", massege: "length of name smaller than 2" })
 
 
 
@@ -143,17 +144,20 @@ export async function updatePassword(req, res) {
 //כניסה של משתמש קיים לפי שם וסיסמא
 export async function logIn(req, res) {
     let { body } = req
-    if (body.password.length < 7)
-        return res.status(409).json({ title: "password error", massege: "length of password smaller than 7" })
+    // if (body.password.length < 7)
+    //     return res.status(409).json({ title: "password error", massege: "length of password smaller than 7" })
 
 
-    if (body.name.length < 2)
-        return res.status(409).json({ title: "name error", massege: "length of name smaller than 2" })
+    // if (body.name.length < 2)
+    //     return res.status(409).json({ title: "name error", massege: "length of name smaller than 2" })
 
     try {
 
         if (!req.body.password || !req.body.name)
             return res.status(400).json({ title: "can't login", massege: "missing userName or password" })
+        let result = validateLogInUser(req.body)
+        if (result.error)
+            res.status(400).json({ title: result.error.details[0].message })
 
         // let data = await userModel.findOne({ name: req.body.name }).lean();
         // if (!data)
