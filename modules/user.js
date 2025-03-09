@@ -18,7 +18,8 @@ export const userSchema = Schema({
 export const userModel = model("user", userSchema)
 
 
-const Joi = require('joi')
+// const Joi = require('joi')
+import Joi from 'joi';
 
  export function validateUser(user) {
     const JoiSchema = Joi.object({
@@ -35,7 +36,7 @@ const Joi = require('joi')
             .optional(),
 
         password: Joi.string()
-            .min(9)
+            .min(7)
             .required(),
 
         tz: Joi.string()
@@ -95,7 +96,7 @@ export function validateLogInUser(user) {
             .required(),
 
             password: Joi.string()
-            .min(9)
+            .min(7)
             .required(),
 
     }).options({ abortEarly: false });

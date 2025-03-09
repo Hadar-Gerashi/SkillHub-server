@@ -124,8 +124,8 @@ export async function updatePassword(req, res) {
     if (!body.password)
         return res.status(400).json({ title: "can't update password", massege: "there is no password field to update" })
 
-    if (body.password.length < 9)
-        return res.status(409).json({ title: "password error", massege: "length of password smaller than 9" })
+    if (body.password.length > 6)
+    return res.status(409).json({ title: "password error", massege: "length of password smaller than 9" })
 
     try {
         let data = await userModel.findByIdAndUpdate(id, body, { new: true }).select('-password');
