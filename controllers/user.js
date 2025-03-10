@@ -140,7 +140,13 @@ export async function updatePassword(req, res) {
         return res.status(409).json({ title: "password error", massege: "length of password smaller than 9" })
 
     try {
-        let data = await userModel.findByIdAndUpdate(id, body, { new: true }).select('-password');
+
+        const salt = bcrypt.genSaltSync(10);
+        const hashedPassword = bcrypt.hashSync(body.password, salt);
+
+        // עדכון בסיס הנתונים עם הסיסמה המגובבת בלבד
+        let data = await userModel.findByIdAndUpdate(id, { password: hashedPassword }, { new: true }).select('-password');
+        // let data = await userModel.findByIdAndUpdate(id, body, { new: true }).select('-password');
         if (!data)
             return res.status(404).json({ title: "can't update password", massege: "No such id found" })
         res.json(data)
@@ -177,11 +183,27 @@ export async function logIn(req, res) {
         // if (data.password != req.body.password)
         //     return res.status(404).json({ title: "cannot find user with such details", message: "wrong  password" })
 
-      
 
-        let data = await userModel.findOne({ password: req.body.password, email: req.body.email }).select('-password').lean();
-        if (!data)
-            return res.status(404).json({ title: "can't login", massege: "No such user found" })
+
+        // let data = await userModel.findOne({ password: req.body.password, email: req.body.email }).select('-password').lean();
+        // if (!data)
+        //     return res.status(404).json({ title: "can't login", massege: "No such user found" })
+
+        let user = await userModel.findOne({ email: body.email }).lean();
+        if (!user) {
+            return res.status(404).json({ title: "No such email", message: "Email not found" });
+        }
+
+        // השוואת הסיסמה שהוזנה מול הגיבוב השמור
+        const isPasswordMatch = await bcrypt.compare(body.password, user.password);
+        if (!isPasswordMatch) {
+            return res.status(401).json({ title: "Login failed", message: "Incorrect password" });
+        }
+
+        if (body.verification !== user.verificationCode) {
+            return res.status(401).json({ title: "Login failed", message: "Incorrect verification code" });
+        }
+
 
 
 
@@ -201,6 +223,7 @@ export async function logIn(req, res) {
 
     }
 }
+
 
 
 
