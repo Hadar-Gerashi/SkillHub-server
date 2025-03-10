@@ -1,4 +1,4 @@
-import { userModel, validateUpdateUser } from '../modules/user.js'
+import { userModel } from '../modules/user.js'
 import { generetTooken } from '../utils/generateToken.js';
 import { validateUser, validateLogInUser, validateUpdateUser } from '../modules/user.js'
 // const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
