@@ -1,6 +1,6 @@
-import { userModel } from '../modules/user.js'
+import { userModel, validateUpdateUser } from '../modules/user.js'
 import { generetTooken } from '../utils/generateToken.js';
-import { validateUser, validateLogInUser, validateUser } from '../modules/user.js'
+import { validateUser, validateLogInUser, validateUpdateUser } from '../modules/user.js'
 // const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
 
@@ -96,7 +96,7 @@ export async function updateUser(req, res) {
         return res.status(400).json({ title: "can't update user", massege: "these fields cannot be updated" })
 
 
-    let result = validateUser(req.body)
+    let result = validateUpdateUser(req.body)
     if (result.error)
         return res.status(400).json({ title: result.error.details[0].message })
     // if (body.tz && body.tz.length < 9)
@@ -167,7 +167,7 @@ export async function logIn(req, res) {
 
         if (!req.body.password || !req.body.email)
             return res.status(400).json({ title: "can't login", massege: "missing email or password" })
-        let result = validateUser(req.body)
+        let result = validateLogInUser(req.body)
         if (result.error)
             return res.status(400).json({ title: result.error.details[0].message })
 
