@@ -19,14 +19,14 @@ export async function addOrder(req, res) {
     if (!body.userId || !body.courses)
         return res.status(400).json({ title: "can't add new order", massege: "you are missing required fields" })
 
-    if (body.date || body.confirmation || body.isPay || body.totalSum)
+    if (body.date || body.confirmation || body.totalSum)
         return res.status(400).json({ title: "fields error", massege: "you tried to initialize a date field" })
 
 
     try {
 
         let newData = new orderModel(body)
-        newData.isPay = true;
+
         newData.totalSum = body.courses.map(item => item.price).reduce((sum, price) => sum + price, 0);
         newData.countCourses = body.courses.map(item => 1)
         let data = await newData.save()

@@ -16,8 +16,7 @@ export const orderSchema = Schema({
         default: 1
     }],
     totalSum: Number,
-    isPay: { type: Boolean, default: false },
-    recommendedBy: String,
+
     confirmation: { type: Boolean, default: false }
 })
 

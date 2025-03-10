@@ -39,7 +39,8 @@ export async function getUserById(req, res) {
 export async function addUser(req, res) {
     let { body } = req
 
-    if (!body.password || !body.tz || !body.email || !body.name)
+    // if (!body.password || !body.tz || !body.email || !body.name)
+    if (!body.password  || !body.email || !body.name)
         return res.status(400).json({ title: "can't add new user", massege: "you are missing required fields" })
     // if (body.password.length < 7)
 
@@ -124,7 +125,7 @@ export async function updatePassword(req, res) {
     let { id } = req.params
     let { body } = req
 
-    if (body.name || body.email || body.tz || body.date || body.role)
+    if (body.name || body.email  || body.date || body.role)
         return res.status(400).json({ title: "can't update password", massege: "these fields cannot be updated" })
 
     if (!body.password)

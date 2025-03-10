@@ -4,7 +4,7 @@ export const userSchema = Schema({
     name: String,
     email: { type: String, require: true },
     password: { type: String, unique: true },
-    tz: String,
+    // tz: String,
     date: {
         type: Date,
         default: new Date() // ברירת מחדל היא הזמן הנוכחי
@@ -38,10 +38,10 @@ import Joi from 'joi';
             .min(7)
             .required(),
 
-        tz: Joi.string()
-            .length(9) 
-            .pattern(/^\d{9}$/) 
-            .required(),
+        // tz: Joi.string()
+        //     .length(9) 
+        //     .pattern(/^\d{9}$/) 
+        //     .required(),
 
         date: Joi.date()
             .default(() => new Date()), 
@@ -72,10 +72,10 @@ export function validateUpdateUser(user) {
             .optional(),
 
 
-        tz: Joi.string()
-            .length(9) 
-            .pattern(/^\d{9}$/) 
-            .optional(),
+        // tz: Joi.string()
+        //     .length(9) 
+        //     .pattern(/^\d{9}$/) 
+        //     .optional(),
 
       
     }).options({ abortEarly: false });
