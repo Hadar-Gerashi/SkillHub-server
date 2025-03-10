@@ -75,9 +75,19 @@ export async function addUser(req, res) {
         body.password = hashedPassword; // מחליפים את הסיסמה המקורית בגיבוב
         let newData = new userModel(body)
         // newData.role = "USER"
-        let data = await newData.save()
+ 
 
-        res.json(data)
+        let data = await newData.save()       
+        let token = generetTooken(data)
+        let { password, ...other } = data.toObject();
+        other.token = token;
+        console.log(other)
+        res.json(other)
+
+        // res.json(data)
+
+
+ 
     }
 
     catch (err) {
