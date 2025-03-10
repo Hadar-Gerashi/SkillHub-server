@@ -58,7 +58,7 @@ import Joi from 'joi';
 
 
 
-export function validateUpdateUser(user) {
+export function validateUser(user) {
     const JoiSchema = Joi.object({
         name: Joi.string()
             .min(2)
@@ -86,21 +86,21 @@ export function validateUpdateUser(user) {
 
 
 
-export function validateLogInUser(user) {
-    const JoiSchema = Joi.object({
-        name: Joi.string()
-            .min(2)
-            .max(30)
-            .required(),
+// export function validateLogInUser(user) {
+//     const JoiSchema = Joi.object({
+//         name: Joi.string()
+//             .min(2)
+//             .max(30)
+//             .required(),
 
-            password: Joi.string()
-            .min(7)
-            .required(),
+//             password: Joi.string()
+//             .min(7)
+//             .required(),
 
-    }).options({ abortEarly: false });
+//     }).options({ abortEarly: false });
 
-    return JoiSchema.validate(user);
-}
+//     return JoiSchema.validate(user);
+// }
 
 
 

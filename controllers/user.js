@@ -1,6 +1,6 @@
 import { userModel } from '../modules/user.js'
 import { generetTooken } from '../utils/generateToken.js';
-import { validateUser, validateLogInUser, validateUpdateUser } from '../modules/user.js'
+import { validateUser, validateLogInUser, validateUser } from '../modules/user.js'
 // const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
 
@@ -40,9 +40,10 @@ export async function addUser(req, res) {
     let { body } = req
 
     // if (!body.password || !body.tz || !body.email || !body.name)
-    if (!body.password  || !body.email || !body.name)
+    if (!body.password || !body.email || !body.name)
         return res.status(400).json({ title: "can't add new user", massege: "you are missing required fields" })
     // if (body.password.length < 7)
+
 
     //     return res.status(409).json({ title: "password error", massege: "length of password smaller than 7" })
 
@@ -67,6 +68,10 @@ export async function addUser(req, res) {
         if (isExist)
             return res.status(404).json({ title: "can't login", massege: "user already exist" })
 
+
+        const saltRounds = bcrypt.genSaltSync(10);
+        const hashedPassword = await bcrypt.hash(body.password, saltRounds);
+        body.password = hashedPassword; // מחליפים את הסיסמה המקורית בגיבוב
         let newData = new userModel(body)
         // newData.role = "USER"
         let data = await newData.save()
@@ -91,7 +96,7 @@ export async function updateUser(req, res) {
         return res.status(400).json({ title: "can't update user", massege: "these fields cannot be updated" })
 
 
-    let result = validateUpdateUser(req.body)
+    let result = validateUser(req.body)
     if (result.error)
         return res.status(400).json({ title: result.error.details[0].message })
     // if (body.tz && body.tz.length < 9)
@@ -125,7 +130,7 @@ export async function updatePassword(req, res) {
     let { id } = req.params
     let { body } = req
 
-    if (body.name || body.email  || body.date || body.role)
+    if (body.name || body.email || body.date || body.role)
         return res.status(400).json({ title: "can't update password", massege: "these fields cannot be updated" })
 
     if (!body.password)
@@ -160,9 +165,9 @@ export async function logIn(req, res) {
 
     try {
 
-        if (!req.body.password || !req.body.name)
-            return res.status(400).json({ title: "can't login", massege: "missing userName or password" })
-        let result = validateLogInUser(req.body)
+        if (!req.body.password || !req.body.email)
+            return res.status(400).json({ title: "can't login", massege: "missing email or password" })
+        let result = validateUser(req.body)
         if (result.error)
             return res.status(400).json({ title: result.error.details[0].message })
 
@@ -172,9 +177,12 @@ export async function logIn(req, res) {
         // if (data.password != req.body.password)
         //     return res.status(404).json({ title: "cannot find user with such details", message: "wrong  password" })
 
-        let data = await userModel.findOne({ password: req.body.password, name: req.body.name }).select('-password').lean();
+      
+
+        let data = await userModel.findOne({ password: req.body.password, email: req.body.email }).select('-password').lean();
         if (!data)
             return res.status(404).json({ title: "can't login", massege: "No such user found" })
+
 
 
         let token = generetTooken(data)
