@@ -21,7 +21,7 @@ export const userModel = model("user", userSchema)
 // const Joi = require('joi')
 import Joi from 'joi';
 
- export function validateUser(user) {
+export function validateUser(user) {
     const JoiSchema = Joi.object({
         name: Joi.string()
             .min(2)
@@ -44,11 +44,11 @@ import Joi from 'joi';
         //     .required(),
 
         date: Joi.date()
-            .default(() => new Date()), 
+            .default(() => new Date()),
 
         role: Joi.string()
-            .default("USER") 
-            .valid("USER", "ADMIN") 
+            .default("USER")
+            .valid("USER", "ADMIN")
             .optional(),
     }).options({ abortEarly: false });
 
@@ -77,7 +77,7 @@ export function validateUpdateUser(user) {
         //     .pattern(/^\d{9}$/) 
         //     .optional(),
 
-      
+
     }).options({ abortEarly: false });
 
     return JoiSchema.validate(user);
@@ -94,10 +94,13 @@ export function validateLogInUser(user) {
             .pattern(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)
             .optional(),
 
-            password: Joi.string()
+        password: Joi.string()
             .min(7)
             .required(),
-            
+        verification: Joi.string()
+            .min(7)
+            .required(),
+
 
     }).options({ abortEarly: false });
 
