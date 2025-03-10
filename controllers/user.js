@@ -172,7 +172,7 @@ export async function logIn(req, res) {
 
     try {
 
-        if (!body.password || !body.email )
+        if (!req.body.password || !req.body.email )
             return res.status(400).json({ title: "can't login", massege: "missing email or password" })
         let result = validateLogInUser(req.body)
         if (result.error)

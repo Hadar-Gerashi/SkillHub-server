@@ -96,10 +96,8 @@ export function validateLogInUser(user) {
 
         password: Joi.string()
             .min(7)
-            .required(),
-        verification: Joi.string()
-            .min(7)
-            .required(),
+            .required()
+       
 
 
     }).options({ abortEarly: false });
