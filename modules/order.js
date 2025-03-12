@@ -10,14 +10,16 @@ export const orderSchema = Schema({
         type: Types.ObjectId,
         ref: "courses"
     },
-    courses: [courseSchema],
-    countCourses: [{
-        type: Number,
-        default: 1
-    }],
+    courses: [{
+        course: courseSchema}
+      ],
+    // countCourses: [{
+    //     type: Number,
+    //     default: 1
+    // }],
     totalSum: Number,
-
-    confirmation: { type: Boolean, default: false }
+    count:Number
+    // confirmation: { type: Boolean, default: false }
 })
 
 export const orderModel = model("order", orderSchema)

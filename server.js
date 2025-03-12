@@ -6,6 +6,7 @@ import { connectToDB } from "./config/DB.js"
 import courseRouter from "./routes/course.js";
 import userRoutes from "./routes/user.js";
 import orderRouter from "./routes/order.js";
+import { queryParser } from "express-query-parser";
 
 
 
@@ -15,6 +16,13 @@ const app = express()
 connectToDB()
 app.use(cors())
 app.use(express.json())
+// app.use(
+//     queryParser({
+//         parseNull: true,
+//         parseBoolean: true,
+//         parseNumber: true
+//     })
+// );
 
 app.use("/api/course", courseRouter)
 app.use("/api/user", userRoutes)

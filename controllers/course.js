@@ -15,6 +15,24 @@ export async function getAllCourses(req, res) {
         res.status(400).json({ title: "can't get all courses", massege: err.massege })
     }
 }
+// export async function getAllCourses(req, res) {
+//     try {
+//         let limit = req.query.limit || 10;
+//         let page = req.query.page|| 1;
+//         let sortBy  = req.query.sort || "name"; // ברירת מחדל למיון לפי שם
+
+//         let data = await courseModel
+//             .sort(sortBy) // הוספת המיון
+//             .skip((page - 1) * limit)
+//             .limit(limit);
+
+//         res.json(data);
+//     } catch (err) {
+//         console.log(err);
+//         res.status(400).json({ title: "can't get courses", message: err.message });
+//     }
+// }
+
 
 
 
