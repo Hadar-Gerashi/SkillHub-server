@@ -10,8 +10,8 @@ export const orderSchema = Schema({
         type: Types.ObjectId,
         ref: "courses"
     },
-    courses: [{
-        course: courseSchema}
+    courses: [
+       courseSchema
       ],
     // countCourses: [{
     //     type: Number,
