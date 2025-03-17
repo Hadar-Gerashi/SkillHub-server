@@ -7,7 +7,7 @@ const router=express.Router();
 
 router.get("/",getAllOrders)
 router.delete("/:id",isUserIn,deleteOrderById)
-router.post("/",addOrder)
+router.post("/",isUserIn,addOrder)
 router.get("/:userId",getOrdersByUser)
 // router.put("/:orderId",isUserIn,updateConfirmation)
 
