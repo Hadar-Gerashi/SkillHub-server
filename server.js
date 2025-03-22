@@ -10,11 +10,11 @@ import { queryParser } from "express-query-parser";
 import multer from "multer";
 import path from "path";
 import { fileURLToPath } from 'url';
+import helmet from 'helmet';
 
 
 dotenv.config()
 const app = express()
-
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
