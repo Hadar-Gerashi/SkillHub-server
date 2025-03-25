@@ -1,16 +1,16 @@
 import express from "express";
 import dotenv from "dotenv"
 import cors from 'cors'
+import multer from "multer";
+import path from "path";
+import { fileURLToPath } from 'url';
+
 
 import { connectToDB } from "./config/DB.js"
 import courseRouter from "./routes/course.js";
 import userRoutes from "./routes/user.js";
 import orderRouter from "./routes/order.js";
-import { queryParser } from "express-query-parser";
-import multer from "multer";
-import path from "path";
-import { fileURLToPath } from 'url';
-import helmet from 'helmet';
+
 
 
 dotenv.config()
@@ -22,7 +22,7 @@ const __dirname = path.dirname(__filename);
 connectToDB()
 app.use(cors())
 app.use(express.json())
-app.use(express.static("public")); 
+app.use(express.static("public"));
 
 
 app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
@@ -51,19 +51,17 @@ app.post("/upload", upload.single("image"), (req, res) => {
     res.json({ filePath: `/uploads/${req.file.filename}` });
 });
 
+
 app.use("/api/course", courseRouter)
 app.use("/api/user", userRoutes)
 app.use("/api/order", orderRouter)
 let port = process.env.PORT;
 
-// app.use((req, res, next, err) => {
-//     //זה שהוא מקבל 4 פרמטרים זה מה שגורם לו להיות לחכידת שגיאות
-//     return res.status(500).json({ title: "שגיאה בשרת", message: err.message })
-// })
+
 app.use((err, req, res, next) => {
-    // אם יש שגיאה, מחזיר סטטוס 500
     return res.status(500).json({ title: "שגיאה בשרת", message: err.message });
 });
+
 
 app.listen(port, () => {
     console.log("app is listening in port " + port)

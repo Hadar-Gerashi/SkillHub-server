@@ -1,14 +1,5 @@
 import { Schema, model } from "mongoose"
 
-// const responseSchema=Schema({
-//     name:String,
-//     img:String,
-//     score:Number,
-//     content:String
-// })
-
-
-
 export const courseSchema = Schema({
     name: String,
     describe: String,
@@ -36,7 +27,11 @@ export const courseSchema = Schema({
     'RIDING'],
     },
     locations: [String],
-    // responses:[responseSchema]
+    qty:{
+        type: Number,
+        default: 1
+
+    }
 })
 
 export const courseModel = model("courses", courseSchema)

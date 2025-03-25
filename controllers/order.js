@@ -16,19 +16,16 @@ export async function getAllOrders(req, res) {
 //הוספת הזמנה חדשה
 export async function addOrder(req, res) {
     let { body } = req
+
     if (!body.userId || !body.courses)
         return res.status(400).json({ title: "can't add new order", massege: "you are missing required fields" })
-
-    if (body.date )
+    if (body.date)
         return res.status(400).json({ title: "fields error", massege: "you tried to initialize a date field" })
 
 
     try {
 
         let newData = new orderModel(body)
-
-        // newData.totalSum = body.courses.map(item => item.price).reduce((sum, price) => sum + price, 0);
-        // newData.countCourses = body.courses.map(item => 1)
         let data = await newData.save()
         res.json(data)
     }
@@ -50,11 +47,6 @@ export async function deleteOrderById(req, res) {
         let data = await orderModel.findByIdAndDelete(id)
         if (!data)
             return res.status(404).json({ title: "can't delete this order", massege: "No such id found" })
-
-
-        // if (data.confirmation)
-        //     return res.status(400).json({ title: "can't delete this order", massege: "confirmation is true" })
-        // res.json(data)
 
     }
     catch (err) {
@@ -79,20 +71,6 @@ export async function getOrdersByUser(req, res) {
 
 }
 
-
-//עדכון אישור הזמנה לtrue
-// export async function updateConfirmation(req, res) {
-//     let { orderId } = req.params
-//     try {
-//         let result = await orderModel.findByIdAndUpdate(orderId, { confirmation: true }, { new: true })
-//         res.json(result)
-//     }
-//     catch (err) {
-//         console.log(err)
-//         res.status(400).json({ title: "can't update confirmation", massege: err.massege })
-//     }
-
-// }
 
 
 

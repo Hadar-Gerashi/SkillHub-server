@@ -1,13 +1,15 @@
 import { Schema, model } from "mongoose"
+import Joi from 'joi';
+
+
 
 export const userSchema = Schema({
     name: String,
     email: { type: String, require: true },
     password: { type: String, unique: true },
-    // tz: String,
     date: {
         type: Date,
-        default: new Date() // ברירת מחדל היא הזמן הנוכחי
+        default: () => new Date()// ברירת מחדל היא הזמן הנוכחי
     },
     role: {
         type: String,
@@ -15,12 +17,11 @@ export const userSchema = Schema({
         default: 'USER'
     }
 })
+
+
+
+
 export const userModel = model("user", userSchema)
-
-
-// const Joi = require('joi')
-import Joi from 'joi';
-
 export function validateUser(user) {
     const JoiSchema = Joi.object({
         name: Joi.string()
@@ -38,10 +39,6 @@ export function validateUser(user) {
             .min(7)
             .required(),
 
-        // tz: Joi.string()
-        //     .length(9) 
-        //     .pattern(/^\d{9}$/) 
-        //     .required(),
 
         date: Joi.date()
             .default(() => new Date()),
@@ -71,11 +68,6 @@ export function validateUpdateUser(user) {
             .pattern(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)
             .optional(),
 
-
-        // tz: Joi.string()
-        //     .length(9) 
-        //     .pattern(/^\d{9}$/) 
-        //     .optional(),
 
 
     }).options({ abortEarly: false });

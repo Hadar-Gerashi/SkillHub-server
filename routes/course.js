@@ -1,6 +1,6 @@
 import express from 'express'
 
-import { isManager, isUserIn } from '../middlewares/isUserIn.js';
+import { isManager } from '../middlewares/isUserIn.js';
 import {getAllCourses,getCourseById,deleteCourseById,addCourse,updateCourse,getTotalCount} from '../controllers/course.js'
 
 

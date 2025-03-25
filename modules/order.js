@@ -13,13 +13,10 @@ export const orderSchema = Schema({
     courses: [
        courseSchema
       ],
-    // countCourses: [{
-    //     type: Number,
-    //     default: 1
-    // }],
+
     totalSum: Number,
     count:Number
-    // confirmation: { type: Boolean, default: false }
+   
 })
 
 export const orderModel = model("order", orderSchema)
