@@ -4,6 +4,9 @@ import cors from 'cors'
 import multer from "multer";
 import path from "path";
 import { fileURLToPath } from 'url';
+// import { CloudinaryStorage } from 'multer-storage-cloudinary';
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import cloudinary from "./config/cloudinary.js";
 
 
 import { connectToDB } from "./config/DB.js"
