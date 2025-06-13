@@ -41,7 +41,7 @@ const storage = new CloudinaryStorage({
   
   const upload = multer({ storage });
   
-  app.post("/upload", upload.single("image"), (req, res) => {
+  app.post("/api/upload", upload.single("image"), (req, res) => {
     if (!req.file || !req.file.path) {
       return res.status(400).json({ error: "לא נבחר קובץ" });
     }
