@@ -1,7 +1,9 @@
+import bcrypt from "bcryptjs"
+
 import { userModel } from '../modules/user.js'
-import { generetTooken } from '../utils/generateToken.js';
+import { generetTooken } from '../utils/generateToken.js'
 import { validateUser, validateLogInUser, validateUpdateUser } from '../modules/user.js'
-import bcrypt from "bcryptjs";
+
 
 
 
@@ -58,7 +60,7 @@ export async function addUser(req, res) {
             return res.status(404).json({ title: "can't login", massege: "email already exist" })
 
         const hashedPassword = await bcrypt.hash(body.password, 10);
-        body.password = hashedPassword; // מחליפים את הסיסמה המקורית בגיבוב
+        body.password = hashedPassword; 
         let newData = new userModel(body)
         let data = await newData.save()
         let token = generetTooken(data)

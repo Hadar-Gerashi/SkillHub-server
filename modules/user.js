@@ -1,7 +1,5 @@
 import { Schema, model } from "mongoose"
-import Joi from 'joi';
-
-
+import Joi from 'joi'
 
 export const userSchema = Schema({
     name: String,
@@ -9,7 +7,7 @@ export const userSchema = Schema({
     password: { type: String, unique: true },
     date: {
         type: Date,
-        default: () => new Date()// ברירת מחדל היא הזמן הנוכחי
+        default: () => new Date()
     },
     role: {
         type: String,
@@ -17,8 +15,6 @@ export const userSchema = Schema({
         default: 'USER'
     }
 })
-
-
 
 
 export const userModel = model("user", userSchema)

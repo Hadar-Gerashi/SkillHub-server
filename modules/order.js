@@ -2,8 +2,6 @@ import { Schema, model, Types } from "mongoose"
 
 import { courseSchema } from "./course.js"
 
-
-
 export const orderSchema = Schema({
     date: { type: Date, default: new Date() },
     userId: {

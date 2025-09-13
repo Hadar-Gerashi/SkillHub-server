@@ -133,3 +133,14 @@ export const getTotalCount = async (req, res) => {
 
 }
 
+
+// קבלת קטגוריות השיכות לקורסים
+export const getCategories = (req, res) => {
+  try {
+    const categories = courseModel.schema.path("categories").caster.enumValues
+    res.json(categories)
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch categories" })
+  }
+}
+
