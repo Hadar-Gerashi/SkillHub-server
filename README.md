@@ -1,11 +1,11 @@
-# 📚 SkillHub – Course Management API
+# SkillHub – Course Management API
 
 A full-featured backend API for managing courses, users, and orders.  
 Built with **Node.js** and **Express**, using **MongoDB Atlas** for data storage.  
 Input validation with **Joi**, password hashing with **bcrypt**, and course images uploaded to **Cloudinary**.  
 JWT tokens are used for secure authentication and route protection.
 
-## ✨ **Features**
+## **Features**
 
 ### **User Management**
 - Secure Authentication: Registration and login with JWT and bcrypt
@@ -27,14 +27,14 @@ JWT tokens are used for secure authentication and route protection.
 - File uploads restricted and stored securely on Cloudinary
 
 
-## 🛠️ **Technologies**
+## **Technologies**
 - **Backend:** Node.js, Express
 - **Database:** MongoDB Atlas + Mongoose
 - **Authentication & Security:** JWT, bcrypt
 - **File Upload:** multer + Cloudinary
 - **Environment Management:** dotenv
 
-## 📁 **Project Structure**
+## **Project Structure**
 
 ```
 skillhub-api/
@@ -69,7 +69,7 @@ skillhub-api/
 └── README.md                 # Project documentation
 ```
 
-## 🚀 Installation & Setup
+## Installation & Setup
 
 ### Prerequisites
 
@@ -114,7 +114,7 @@ node server
 
 Visit [http://localhost:8000](http://localhost:8000) in your browser.
 
-## 📋 Requirements.txt Example
+## Requirements.txt Example
 
 ```
 bcryptjs                   # Password hashing and security
@@ -132,20 +132,20 @@ multer-storage-cloudinary  # Multer storage engine for Cloudinary
 nodemailer                 # Sending emails
 ```
 
-## 🔐 Security Features
+## Security Features
 
 - **Password Security**: All passwords are hashed using bcrypt
 - **JWT Authentication**: Secure token-based authentication for protected routes
 - **File Upload Security**: Validated image types uploaded securely to Cloudinary
 - **Environment Variables**: Sensitive data stored in .env
 
-## 📸 File Storage
+## File Storage
 
 - **Course Images**: Uploaded and stored on Cloudinary cloud storage
 - **File Validation**: Only approved file formats are accepted
 - **Cloud Integration**: Automatic optimization and CDN delivery via Cloudinary
 
-## 📋 API Endpoints
+## API Endpoints
 
 | Method | Endpoint                               | Description                                 | Auth | Module |
 |--------|----------------------------------------|---------------------------------------------|------|--------|
@@ -176,15 +176,15 @@ nodemailer                 # Sending emails
 - Orders: `: http://localhost:8000/api/order`
 - Upload Image: `: http://localhost:8000/api/upload`
 
-## 👨‍💻 Author
+## Author
 
 **Hadar** - Software Engineering Student  
 Developed as part of final studies project
 
-## 📞 Support
+## Support
 
 If you encounter any issues or have questions, please open an issue on GitHub or contact the maintainer.
 
-**Happy Shopping! 🛒**
+**Happy Shopping!**
 
 
